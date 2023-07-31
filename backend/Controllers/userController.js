@@ -8,7 +8,7 @@ const registerUser = asyncHandler(async(req,res)=>{
     const {email, name, password, pic} = req.body;
 
     if (!name || !email || !password){
-        res.send(400);
+        res.sendStatus(400);
         throw new Error("Please enter all the details.")
     };
 
@@ -62,10 +62,25 @@ const authUser = asyncHandler(async(req, res)=>{
             token:generateToken(user._id)
         })
     }else{
-        res.send(401);
+        res.sendStatus(401);
         throw new Error ("Invalid ID or password");
     }
 
 })
 
-module.exports = {registerUser, authUser};
+const allUsers = asyncHandler(async(req, res)=>{
+    const keyword = req.query.search
+        ?{
+            $or:[
+                {name:{$regex:req.query.search, $options:"i"}},
+                {email:{$regex:req.query.search, $options:"i"}}
+            ],
+        }
+        :{};
+    const users = await User.find(keyword).find({_id:{$ne:req.user._id}});
+    res.send(users);
+})
+
+
+
+module.exports = {registerUser, authUser, allUsers};

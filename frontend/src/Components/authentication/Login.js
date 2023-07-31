@@ -6,20 +6,23 @@ import {InputGroup,InputRightElement,Button} from "@chakra-ui/react"
 import { useToast } from '@chakra-ui/react'
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import { ChatState } from "../../Context/ChatProvider";
+
 
 
 
 const Login = () => {
    const [show,setShow] = useState(false);
+   const handleClick =()=>setShow(!show);
    
     const [email,setEmail] =useState();
     const [password,setPassword] =useState();
     const [loading,setLoading] = useState(false);
     const toast = useToast();
     const navigate = useNavigate();
-
+    const { setUser } = ChatState();
    
-    const handleClick =()=>setShow(!show);
+    
 
    
 
@@ -59,10 +62,11 @@ const Login = () => {
             isClosable: true, 
             position: "bottom ",
         });
+        setUser(data);
 
         localStorage.setItem('userInfo',JSON.stringify(data));
-                setLoading(false);
-                navigate('/chats');
+        setLoading(false);
+        navigate('/chats');
             } catch(err){
                 console.log(err);
                         

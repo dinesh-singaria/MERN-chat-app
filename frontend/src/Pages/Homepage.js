@@ -9,7 +9,7 @@ const Homepage = () => {
   const navigate = useNavigate();
     
   useEffect(()=>{
-    const user =JSON.parse(localStorage.getItem("userInfo"));
+    const user = JSON.stringify(localStorage.getItem("userInfo"));
 
 
     if (user){

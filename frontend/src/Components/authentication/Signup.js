@@ -18,10 +18,10 @@ const Signup = () => {
   const [confirmpassword, setConfirmpassword] = useState();
   const [password, setPassword] = useState();
   const [pic, setPic] = useState();
-  const [picLoading, setPicLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const submitHandler = async () => {
-    setPicLoading(true);
+    setLoading(true);
     if (!name || !email || !password || !confirmpassword) {
       toast({
         title: "Please Fill all the Feilds",
@@ -30,7 +30,7 @@ const Signup = () => {
         isClosable: true,
         position: "bottom",
       });
-      setPicLoading(false);
+      setLoading(false);
       return;
     }
     if (password !== confirmpassword) {
@@ -69,7 +69,7 @@ const Signup = () => {
         position: "bottom",
       });
       localStorage.setItem("userInfo", JSON.stringify(data));
-      setPicLoading(false);
+      setLoading(false);
       navigate("/chats");
     } catch (error) {
       toast({
@@ -80,12 +80,13 @@ const Signup = () => {
         isClosable: true,
         position: "bottom",
       });
-      setPicLoading(false);
+      setLoading(false);
     }
   };
 
   const postDetails = (pics) => {
-    setPicLoading(true);
+    setLoading(true);
+
     if (pics === undefined) {
       toast({
         title: "Please Select an Image!",
@@ -96,38 +97,44 @@ const Signup = () => {
       });
       return;
     }
-    console.log(pics);
-    if (pics.type === "image/jpeg" || pics.type === "image/png") {
-      const data = new FormData();
-      data.append("file", pics);
-      data.append("upload_preset", "chat-app");
-      data.append("cloud_name", "dps9hqpwg");
-      fetch("https://api.cloudinary.com/v1_1/dps9hqpwg/image/upload", {
-        method: "post",
-        body: data,
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setPic(data.url.toString());
-          console.log(data.url.toString());
-          setPicLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-          setPicLoading(false);
-        });
-    } else {
+
+    if (pics.type !== "image/jpeg" && pics.type !== "image/png") {
       toast({
-        title: "Please Select an Image!",
+        title: "Please Select a JPEG or PNG Image!",
         status: "warning",
         duration: 5000,
         isClosable: true,
         position: "bottom",
       });
-      setPicLoading(false);
+      setLoading(false);
       return;
     }
-  };
+
+    if (pics.type === "image/jpeg" || pics.type === "image/png") {
+
+      const data = new FormData()
+      data.append("file", pics)
+      data.append("upload_preset", "chat-app")
+      data.append("cloud_name", "dps9hqpwg")
+      axios.post("https://api.cloudinary.com/v1_1/dps9hqpwg/image/upload", data)
+        .then((response) => {
+          console.log("Cloudinary response:", response);
+          setPic(response.data.url.toString());
+          setLoading(false);
+          toast({
+            title: "Image uploaded successfully!",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom",
+          });
+        })
+        .catch((error) => {
+          console.log("Cloudinary error:", error);
+          setLoading(false);
+        });
+    }
+  }
 
   return (
     <VStack spacing="5px">
@@ -190,7 +197,7 @@ const Signup = () => {
         width="100%"
         style={{ marginTop: 15 }}
         onClick={submitHandler}
-        isLoading={picLoading}
+        isLoading={loading}
       >
         Sign Up
       </Button>

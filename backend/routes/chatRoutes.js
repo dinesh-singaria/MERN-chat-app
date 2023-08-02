@@ -1,5 +1,5 @@
 
-const { protect } = require('..//middleware/authMiddleware')
+const { protect } = require('../middleware/authMiddleware')
 const { accessChat, fetchChats, createGroupChat, renameGroup, addToGroup, removeFromGroup } = require('../Controllers/chatControllers')
 const express = require('express')
 

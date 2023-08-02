@@ -35,9 +35,9 @@ const accessChat = asyncHandler(async(req,res) => {
         }
         try {
             const createdChat = await Chat.create(chatData);
-            const fullChat = await Chat.findOne({_id:createdChat._id}).populate("users","-password");
+            const FullChat = await Chat.findOne({_id:createdChat._id}).populate("users","-password");
 
-            res.status(200).send(fullChat);
+            res.status(200).send(FullChat);
         } catch (error) {
             res.status(400).send(error);
             throw new Error(error.message);
@@ -63,7 +63,9 @@ const fetchChats = asyncHandler(async(req, res)=>{
         });
     } catch (error) {
         res.status(400).send
+        console.error(error);
         throw new Error(error.message);
+       
     }
 })
 

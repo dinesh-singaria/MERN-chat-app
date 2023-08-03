@@ -3,12 +3,7 @@ import { Box, Text } from "@chakra-ui/layout";
 import { ChatState } from "../../Context/ChatProvider";
 
 const UserListItem = ({user, handleFunction }) => {
-  
-/*askfgwliyFGJDBFDHGFkehsefe
-cvdhfjesgfhavDF
-DFKhvdsfhevfjewDF
-BKDHVCFEKHFVWDKHFGESF
-VJDKUVBFDJKGFKFBC*/
+/*github apni maa chudara hai */
 
 
   return (

@@ -49,7 +49,7 @@ export default function Login() {
           config
         );
   
-        // console.log(JSON.stringify(data));
+        console.log(JSON.stringify(data));
         toast({
           title: "Login Successful",
           status: "success",

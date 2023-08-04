@@ -25,7 +25,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState("");
   const toast = useToast();
-  var selectedChatCompare;
 
   const { selectedChat, setSelectedChat, user } =
     ChatState();

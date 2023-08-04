@@ -10,7 +10,7 @@ import { Button } from "@chakra-ui/react";
 import { ChatState } from "../Context/ChatProvider";
 
 const MyChats = ({ fetchAgain }) => {
-  const [loggedUser, setLoggedUser] = useState("");
+  const [loggedUser, setLoggedUser] = useState('');
 
   const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
 
@@ -108,7 +108,7 @@ const MyChats = ({ fetchAgain }) => {
                 {chat.latestMessage && (
                   <Text fontSize="xs">
                     <b>{chat.latestMessage.sender.name} : </b>
-                    {chat.latestMessage.content > 50
+                    {chat.latestMessage.content.length > 50
                       ? chat.latestMessage.content.substring(0, 51) + "..."
                       : chat.latestMessage.content}
                   </Text>

@@ -20,6 +20,58 @@ const Signup = () => {
   const [pic, setPic] = useState();
   const [loading, setLoading] = useState(false);
 
+  const postDetails = (pics) => {
+    setLoading(true);
+
+    if (pics === undefined) {
+      toast({
+        title: "Please Select an Image!",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
+    }
+
+    if (pics.type !== "image/jpeg" && pics.type !== "image/png") {
+      toast({
+        title: "Please Select a JPEG or PNG Image!",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      setLoading(false);
+      return;
+    }
+
+    if (pics.type === "image/jpeg" || pics.type === "image/png") {
+
+      const data = new FormData()
+      data.append("file", pics)
+      data.append("upload_preset", "chat-app")
+      data.append("cloud_name", "dps9hqpwg")
+      axios.post("https://api.cloudinary.com/v1_1/dps9hqpwg/image/upload", data)
+        .then((response) => {
+          // console.log("Cloudinary response:", response);
+          setPic(response.data.url.toString());
+          setLoading(false);
+          toast({
+            title: "Image uploaded successfully!",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom",
+          });
+        })
+        .catch((error) => {
+          console.log("Cloudinary error:", error);
+          setLoading(false);
+        });
+    }
+  }
+
   const submitHandler = async () => {
     setLoading(true);
     if (!name || !email || !password || !confirmpassword) {
@@ -84,57 +136,7 @@ const Signup = () => {
     }
   };
 
-  const postDetails = (pics) => {
-    setLoading(true);
-
-    if (pics === undefined) {
-      toast({
-        title: "Please Select an Image!",
-        status: "warning",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-      return;
-    }
-
-    if (pics.type !== "image/jpeg" && pics.type !== "image/png") {
-      toast({
-        title: "Please Select a JPEG or PNG Image!",
-        status: "warning",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-      setLoading(false);
-      return;
-    }
-
-    if (pics.type === "image/jpeg" || pics.type === "image/png") {
-
-      const data = new FormData()
-      data.append("file", pics)
-      data.append("upload_preset", "chat-app")
-      data.append("cloud_name", "dps9hqpwg")
-      axios.post("https://api.cloudinary.com/v1_1/dps9hqpwg/image/upload", data)
-        .then((response) => {
-          console.log("Cloudinary response:", response);
-          setPic(response.data.url.toString());
-          setLoading(false);
-          toast({
-            title: "Image uploaded successfully!",
-            status: "success",
-            duration: 5000,
-            isClosable: true,
-            position: "bottom",
-          });
-        })
-        .catch((error) => {
-          console.log("Cloudinary error:", error);
-          setLoading(false);
-        });
-    }
-  }
+  
 
   return (
     <VStack spacing="5px">

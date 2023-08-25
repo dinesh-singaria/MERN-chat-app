@@ -5,6 +5,7 @@ const connectDB = require("./Config/db");
 const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const messageRoutes = require("./routes/messageRoutes");
+const path = require("path");
 
 const { notFound } = require("./middleware/errorMiddleware");
 const { errorHandler } = require("./middleware/errorMiddleware");

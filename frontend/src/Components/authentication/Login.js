@@ -2,21 +2,22 @@ import { Button } from "@chakra-ui/button";
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { VStack } from "@chakra-ui/layout";
-import React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+import { ChatState } from "../../Context/ChatProvider";
 
-export default function Login() {
-  const navigate = useNavigate();
+const Login = () => {
   const [show, setShow] = useState(false);
+  const handleClick = () => setShow(!show);
   const toast = useToast();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
 
-  const handleClick = () => setShow(!show);
+  const navigate = useNavigate();
+  const { setUser } = ChatState();
 
   const submitHandler = async () => {
     setLoading(true);
@@ -32,7 +33,6 @@ export default function Login() {
       return;
     }
 
-    // console.log(email, password);
     try {
       const config = {
         headers: {
@@ -46,7 +46,6 @@ export default function Login() {
         config
       );
 
-      console.log(JSON.stringify(data));
       toast({
         title: "Login Successful",
         status: "success",
@@ -55,11 +54,10 @@ export default function Login() {
         position: "bottom",
       });
       setUser(data);
-      localStorage.setItem("userInfo", JSON.stringify(data));
+      localStorage.setItem("userInfo", JSON.stringify(data) || "");
       setLoading(false);
       navigate("/chats");
     } catch (error) {
-      console.log(error);
       toast({
         title: "Error Occured!",
         description: error.response.data.message,
@@ -73,7 +71,7 @@ export default function Login() {
   };
 
   return (
-    <VStack spacing="5px">
+    <VStack spacing="10px">
       <FormControl id="email" isRequired>
         <FormLabel>Email Address</FormLabel>
         <Input
@@ -83,15 +81,14 @@ export default function Login() {
           onChange={(e) => setEmail(e.target.value)}
         />
       </FormControl>
-
       <FormControl id="password" isRequired>
         <FormLabel>Password</FormLabel>
         <InputGroup size="md">
           <Input
             value={password}
-            type={show ? "text" : "password"}
-            placeholder="Enter Password"
             onChange={(e) => setPassword(e.target.value)}
+            type={show ? "text" : "password"}
+            placeholder="Enter password"
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -100,7 +97,6 @@ export default function Login() {
           </InputRightElement>
         </InputGroup>
       </FormControl>
-
       <Button
         colorScheme="blue"
         width="100%"
@@ -123,4 +119,6 @@ export default function Login() {
       </Button>
     </VStack>
   );
-}
+};
+
+export default Login;

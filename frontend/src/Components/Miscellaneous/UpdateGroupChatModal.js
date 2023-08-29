@@ -19,8 +19,8 @@ import {
 import axios from "axios";
 import { useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";
-import UserBadgeItem from "../UserAvatar/UserBadgeItem";
-import UserListItem from "../UserAvatar/UserListItem";
+import UserBadgeItem from "./UserAvatar/UserBadgeItem";
+import UserListItem from "./UserAvatar/UserListItem";
 
 const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -47,7 +47,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         },
       };
       const { data } = await axios.get(`/api/user?search=${search}`, config);
-      // console.log(data);
+      console.log(data);
       setLoading(false);
       setSearchResult(data);
     } catch (error) {
@@ -82,7 +82,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         config
       );
 
-      // console.log(data._id);
+      console.log(data._id);
       // setSelectedChat("");
       setSelectedChat(data);
       setFetchAgain(!fetchAgain);

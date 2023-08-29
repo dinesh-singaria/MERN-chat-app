@@ -19,7 +19,7 @@ import { ChatState } from "../../Context/ChatProvider";
 import UserBadgeItem from "../UserAvatar/UserBadgeItem";
 import UserListItem from "../UserAvatar/UserListItem";
 
-axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = "http://127.0.0.1:8000";
 
 const GroupChatModal = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();

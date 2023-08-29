@@ -15,6 +15,7 @@ const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
+  const data = null;
 
   const navigate = useNavigate();
   const { setUser } = ChatState();
@@ -72,7 +73,7 @@ const Login = () => {
 
   return (
     <VStack spacing="10px">
-      <FormControl id="emailL" isRequired>
+      <FormControl id="email" isRequired>
         <FormLabel>Email Address</FormLabel>
         <Input
           value={email}

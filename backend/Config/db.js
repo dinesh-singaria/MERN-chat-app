@@ -1,17 +1,17 @@
 const mongoose = require("mongoose");
 
-const connectDB = async()=>{
-    try {
-        const conn = await mongoose.connect(process.env.MONGO_URI,{
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        })
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
 
-        // console.log(`Mongo DB connected: ${conn.connection.host}`)
-    } catch (error) {
-        console.log(`Error: ${error.massage}`); 
-        process.exit()
-    }
+    console.log(`Mongo DB connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(`Error: ${error.massage}`);
+    process.exit();
+  }
 };
 
-module.exports= connectDB;
+module.exports = connectDB;

@@ -54,7 +54,7 @@ const Login = () => {
         position: "bottom",
       });
       setUser(data);
-      localStorage.setItem("userInfo", JSON.stringify(data) || "");
+      localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
       navigate("/chats");
     } catch (error) {
@@ -72,7 +72,7 @@ const Login = () => {
 
   return (
     <VStack spacing="10px">
-      <FormControl id="email" isRequired>
+      <FormControl id="emailL" isRequired>
         <FormLabel>Email Address</FormLabel>
         <Input
           value={email}

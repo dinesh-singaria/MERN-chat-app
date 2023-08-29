@@ -5,7 +5,7 @@ import { VStack } from "@chakra-ui/layout";
 import { useToast } from "@chakra-ui/toast";
 import axios from "axios";
 import { useState } from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [show, setShow] = useState(false);
@@ -47,12 +47,12 @@ const Signup = () => {
     }
 
     if (pics.type === "image/jpeg" || pics.type === "image/png") {
-
-      const data = new FormData()
-      data.append("file", pics)
-      data.append("upload_preset", "chat-app")
-      data.append("cloud_name", "dps9hqpwg")
-      axios.post("https://api.cloudinary.com/v1_1/dps9hqpwg/image/upload", data)
+      const data = new FormData();
+      data.append("file", pics);
+      data.append("upload_preset", "chat-app");
+      data.append("cloud_name", "dps9hqpwg");
+      axios
+        .post("https://api.cloudinary.com/v1_1/dps9hqpwg/image/upload", data)
         .then((response) => {
           // console.log("Cloudinary response:", response);
           setPic(response.data.url.toString());
@@ -70,7 +70,7 @@ const Signup = () => {
           setLoading(false);
         });
     }
-  }
+  };
 
   const submitHandler = async () => {
     setLoading(true);
@@ -95,7 +95,7 @@ const Signup = () => {
       });
       return;
     }
-    console.log(name, email, password, pic);
+    // console.log(name, email, password, pic);
     try {
       const config = {
         headers: {
@@ -112,7 +112,7 @@ const Signup = () => {
         },
         config
       );
-      console.log(data);
+      // console.log(data);
       toast({
         title: "Registration Successful",
         status: "success",
@@ -136,8 +136,6 @@ const Signup = () => {
     }
   };
 
-  
-
   return (
     <VStack spacing="5px">
       <FormControl id="first-name" isRequired>
@@ -147,7 +145,7 @@ const Signup = () => {
           onChange={(e) => setName(e.target.value)}
         />
       </FormControl>
-      <FormControl id="email" isRequired>
+      <FormControl id="emailS" isRequired>
         <FormLabel>Email Address</FormLabel>
         <Input
           type="email"
@@ -155,7 +153,7 @@ const Signup = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
       </FormControl>
-      <FormControl id="password" isRequired>
+      <FormControl id="passwordS" isRequired>
         <FormLabel>Password</FormLabel>
         <InputGroup size="md">
           <Input
@@ -170,7 +168,7 @@ const Signup = () => {
           </InputRightElement>
         </InputGroup>
       </FormControl>
-      <FormControl id="password" isRequired>
+      <FormControl id="passwordSC" isRequired>
         <FormLabel>Confirm Password</FormLabel>
         <InputGroup size="md">
           <Input

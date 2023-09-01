@@ -11,6 +11,13 @@ dotenv.config();
 connectDB();
 const app = express();
 
+app.use((_req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+
+  next();
+});
+
 app.use(express.json()); // to accept json data
 
 // app.get("/", (req, res) => {

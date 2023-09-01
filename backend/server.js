@@ -8,14 +8,12 @@ const path = require("path");
 
 const { notFound } = require("./middleware/errorMiddleware");
 const { errorHandler } = require("./middleware/errorMiddleware");
-const cors = require("cors");
 
 const app = express();
 dotenv.config();
 connectDB();
 
 app.use(express.json());
-app.use(cors());
 
 // app.get('/',(req,res)=>{
 //     res.send("homepage");

@@ -59,6 +59,7 @@ const Login = () => {
       setLoading(false);
       navigate("/chats");
     } catch (error) {
+      console.log(error);
       toast({
         title: "Error Occured!",
         description: error.response.data.message,

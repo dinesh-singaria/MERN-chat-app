@@ -15,7 +15,8 @@ import animationData from "../animations/typing.json";
 import io from "socket.io-client";
 import UpdateGroupChatModal from "./Miscellaneous/UpdateGroupChatModal";
 import { ChatState } from "../Context/ChatProvider";
-const ENDPOINT = "http://localhost:8000";
+const ENDPOINT = "http://localhost:8000"; 
+// "https://talk-a-tive.herokuapp.com"; -> After deployment
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -36,7 +37,14 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     },
   };
 
-  const { selectedChat, setSelectedChat, user, notification, setNotification } =
+
+  const { 
+         selectedChat, 
+         setSelectedChat,
+          user,
+           notification,
+            setNotification
+             } =
     ChatState();
 
   const fetchMessages = async () => {
@@ -141,7 +149,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
 
-    // typing indicator logic
+// typing indicator logic
     if (!socketConnected) return;
 
     if (!typing) {
@@ -180,8 +188,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               onClick={() => setSelectedChat("")}
             />
             {
-              // messages &&
-              !selectedChat.isGroupChat ? (
+                // messages &&
+              (!selectedChat.isGroupChat ? (
                 <>
                   {getSender(user, selectedChat.users)}
                   <ProfileModal
@@ -197,8 +205,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                     setFetchAgain={setFetchAgain}
                   />
                 </>
-              )
-            }
+              ))}
           </Text>
           <Box
             display="flex"
@@ -235,9 +242,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 <div>
                   <Lottie
                     options={defaultOptions}
+                   
                     width={70}
                     style={{ marginBottom: 15, marginLeft: 0 }}
                   />
+
+
                 </div>
               ) : (
                 <></>
@@ -254,12 +264,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         </>
       ) : (
         // to get socket.io on same page
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          h="100%"
-        >
+        <Box display="flex" alignItems="center" justifyContent="center" h="100%">
           <Text fontSize="3xl" pb={3} fontFamily="Work sans">
             Click on a user to start chatting
           </Text>

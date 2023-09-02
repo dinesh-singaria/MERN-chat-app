@@ -54,10 +54,11 @@ const Login = () => {
         position: "bottom",
       });
       setUser(data);
-      localStorage.setItem("userInfo", JSON.stringify(data) || "");
+      localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
       navigate("/chats");
     } catch (error) {
+      console.log(error);
       toast({
         title: "Error Occured!",
         description: error.response.data.message,

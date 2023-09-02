@@ -54,7 +54,7 @@ const Login = () => {
         position: "bottom",
       });
       setUser(data);
-      localStorage.setItem("userInfo", JSON.stringify(data) || "");
+      localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
       navigate("/chats");
     } catch (error) {
@@ -72,7 +72,7 @@ const Login = () => {
 
   return (
     <VStack spacing="10px">
-      <FormControl id="email" isRequired>
+      <FormControl id="emailL" isRequired>
         <FormLabel>Email Address</FormLabel>
         <Input
           value={email}
@@ -106,16 +106,29 @@ const Login = () => {
       >
         Login
       </Button>
+
       <Button
         variant="solid"
         colorScheme="red"
-        width="100%"
+        width="60%"
+        alignItems="center"
         onClick={() => {
           setEmail("guest@example.com");
           setPassword("123456");
         }}
       >
-        Get Guest User Credentials
+        Guest User
+      </Button>
+      <Button
+        variant="solid"
+        colorScheme="red"
+        width="60%"
+        onClick={() => {
+          setEmail("test1@test.com");
+          setPassword("test1");
+        }}
+      >
+        Demo User
       </Button>
     </VStack>
   );

@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const { chats } = require("./Data/data");
 const connectDB = require("./Config/db");
 const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
@@ -51,22 +52,22 @@ const server = app.listen(
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "https://mern-chat-app-nj1p.onrender.com",
+    origin: "http://localhost:3000",
   },
 });
 
 io.on("connection", (socket) => {
-  // console.log("Connection established");
+  console.log("Connection established");
 
   socket.on("setup", (user) => {
     socket.join(user._id);
     socket.emit("connected");
-    // console.log(user._id);
+    console.log(user._id);
   });
 
   socket.on("join chat", (room) => {
     socket.join(room);
-    // console.log("User joined room: " + room);
+    console.log("User joined room: " + room);
   });
 
   socket.on("typing", (room) => socket.in(room).emit("typing"));

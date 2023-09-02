@@ -15,7 +15,6 @@ const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
-  let data = {};
 
   const navigate = useNavigate();
   const { setUser } = ChatState();
@@ -42,7 +41,7 @@ const Login = () => {
       };
 
       const { data } = await axios.post(
-        "/api/user/login",
+        "https://localhost:8000/api/user/login",
         { email, password },
         config
       );

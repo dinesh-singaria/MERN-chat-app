@@ -15,7 +15,8 @@ dotenv.config();
 connectDB();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
+//
 
 // app.get('/',(req,res)=>{
 //     res.send("homepage");

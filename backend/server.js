@@ -15,8 +15,11 @@ dotenv.config();
 connectDB();
 
 app.use(express.json());
-app.use(cors({ origin: true, credentials: true }));
-//
+app.use(
+  cors({
+    origin: "https://mern-chat-app-nj1p.onrender.com",
+  })
+);
 
 // app.get('/',(req,res)=>{
 //     res.send("homepage");

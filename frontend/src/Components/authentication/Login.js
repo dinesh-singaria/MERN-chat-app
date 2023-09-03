@@ -126,8 +126,8 @@ const Login = () => {
         colorScheme="red"
         width="60%"
         onClick={() => {
-          setEmail("test1@test.com");
-          setPassword("test1");
+          setEmail("dineshsingaria.111@gmail.com");
+          setPassword("dinesh");
         }}
       >
         Demo User
